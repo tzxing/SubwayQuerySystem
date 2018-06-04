@@ -121,7 +121,7 @@ public class SubwayGraph
 		//System.out.println(subwayGraph);
 		System.out.println(subwayGraph.vertices.get("南京南站").line);
 		System.out.println(subwayGraph.vertices.get("龙眠大道站").isTransfer);
-		System.out.println(subwayGraph.shortestRoute("南京站", "龙眠大道站"));
+		System.out.println(subwayGraph.shortestRoute("迈皋桥站", "林山站"));
 	}
 	
 }

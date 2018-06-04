@@ -9,11 +9,14 @@ public class DataBuilder {
     public static List<Station> line1 = new ArrayList<Station>();//1号线  
     public static List<Station> line2 = new ArrayList<Station>();//2号线  
     public static List<Station> line3 = new ArrayList<Station>();//3号线  
+    public static List<Station> line4 = new ArrayList<Station>();//4号线  
     public static List<Station> line10 = new ArrayList<Station>();//10号线  
-    public static List<Station> lineS1 = new ArrayList<Station>();//s1号线  
-    public static List<Station> lineS8 = new ArrayList<Station>();//s8号线  
+    public static List<Station> lineS1 = new ArrayList<Station>();//S1号线  
+    public static List<Station> lineS3 = new ArrayList<Station>();//S3号线  
+    public static List<Station> lineS7 = new ArrayList<Station>();//S7号线  
+    public static List<Station> lineS8 = new ArrayList<Station>();//S8号线  
+    public static List<Station> lineS9= new ArrayList<Station>();//S9号线  
     public static Set<List<Station>> lineSet = new HashSet<List<Station>>();//所有线集合  
-    public static int totalStaion = 0;//总的站点数量  
     static {          
         //1号线  
         String line1Str = "迈皋桥站、红山动物园站、南京站、新模范马路站、玄武门站、鼓楼站、珠江路站、新街口站、张府园站、三山街站、中华门站、安德门站、天隆寺站、软件大道站、花神庙站、南京南站、双龙大道站、河定桥站、胜太路站、百家湖站、小龙湾站、竹山路站、天印大道站、龙眠大道站、南医大·江苏经贸学院站、南京交院站、中国药科大学站";  
@@ -62,6 +65,23 @@ public class DataBuilder {
         		line3.get(i).edgeList.add(line3.get(i-1).label);
         }  
           
+        //4号线
+        String line4Str = "龙江站、南艺·二师·草场门站、云南路站、鼓楼站、鸡鸣寺站、九华山站、岗子村站、蒋王庙站、王家湾站、聚宝山站、苏宁总部·徐庄站、金马路站、汇通路站、灵山站、东流站、孟北站、西岗桦墅站、仙林湖站";  
+        String[] line4Arr = line4Str.split("、");  
+        for(String s : line4Arr)
+        {  
+            line4.add(new Station(s,"4号线"));  
+        }  
+        for(int i =0;i<line4.size();i++)
+        {  
+        	if(i<line4.size()-1)
+        		line4.get(i).edgeList.add(line4.get(i+1).label);
+        	if(i>0)
+        		line4.get(i).edgeList.add(line4.get(i-1).label);
+        }  
+        
+        
+        
         /*******************************************************************************/         
         //10号线  
         String line10Str = "雨山路站、文德路站、龙华路站、南京工业大学站、浦口万汇城站、临江站、江心洲站、绿博园站、梦都大街站、奥体中心站、元通站、中胜站、小行站、安德门站";  
@@ -93,6 +113,40 @@ public class DataBuilder {
         	if(i>0)
         		lineS1.get(i).edgeList.add(lineS1.get(i-1).label);
         }  
+        
+      //s3号线  
+        String lineS3Str = "南京南站、景明佳园站、铁心桥站、春江路站、贾西站、油坊桥站、永初路站、平良大街站、吴侯街站、高庙路站、天保站、刘村站、马骡圩站、兰花塘站、双垅站、石碛河站、桥林新城站、林山站、高家冲站";  
+        String[] lineS3Arr = lineS3Str.split("、");  
+        for(String s : lineS3Arr)
+        {  
+            lineS3.add(new Station(s,"S3号线"));  
+        }  
+        for(int i =0;i<lineS3.size();i++)
+        {  
+        	if(i<lineS3.size()-1)
+        		lineS3.get(i).edgeList.add(lineS3.get(i+1).label);
+        	if(i>0)
+        		lineS3.get(i).edgeList.add(lineS3.get(i-1).label);
+        }  
+        
+        
+      //s7号线  
+        String lineS7Str = "禄口机场站、空港新城江宁站、柘塘站、空港新城溧水站、群力站、卧龙湖站、溧水站、中山湖站、幸庄站、无想山站";  
+        String[] lineS7Arr = lineS7Str.split("、");  
+        for(String s : lineS7Arr)
+        {  
+            lineS7.add(new Station(s,"S7号线"));  
+        }  
+        for(int i =0;i<lineS7.size();i++)
+        {  
+        	if(i<lineS7.size()-1)
+        		lineS7.get(i).edgeList.add(lineS7.get(i+1).label);
+        	if(i>0)
+        		lineS7.get(i).edgeList.add(lineS7.get(i-1).label);
+        }  
+        
+        
+        
           
         /*******************************************************************************/         
         //s8号线  
@@ -109,15 +163,33 @@ public class DataBuilder {
         	if(i>0)
         		lineS8.get(i).edgeList.add(lineS8.get(i-1).label);
         }  
+        
+      //s9号线  
+        String lineS9Str = "翔宇路南站、铜山站、石湫站、明觉站、团结圩站、高淳站";  
+        String[] lineS9Arr = lineS9Str.split("、");  
+        for(String s : lineS9Arr)
+        {  
+            lineS1.add(new Station(s,"S9号线"));  
+        }  
+        for(int i =0;i<lineS9.size();i++)
+        {  
+        	if(i<lineS9.size()-1)
+        		lineS9.get(i).edgeList.add(lineS9.get(i+1).label);
+        	if(i>0)
+        		lineS9.get(i).edgeList.add(lineS9.get(i-1).label);
+        }  
           
         lineSet.add(line1);  
         lineSet.add(line2);  
         lineSet.add(line3);  
+        lineSet.add(line4);
         lineSet.add(line10);  
         lineSet.add(lineS1);  
-        lineSet.add(lineS8);  
-        totalStaion  = line1.size() + line2.size() + line3.size() + line10.size() + lineS1.size() + lineS8.size();  
-        //System.out.println("总的站点数量："+totalStaion);  
+        lineSet.add(lineS3);
+        lineSet.add(lineS7);
+        lineSet.add(lineS8);
+        lineSet.add(lineS9);
+        
     }  
     public static void main(String[] args)
 	{
