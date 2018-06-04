@@ -35,4 +35,15 @@ public class Station
 	{
 		return this.line.toString();
 	}
+	public boolean onTheSameLine(Station station)
+	{
+		boolean ret=false;
+		for(String a:this.line)
+		{
+			for(String b:station.line)
+				if(a.equals(b))
+					ret=true;
+		}
+		return ret;
+	}
 }

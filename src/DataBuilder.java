@@ -195,7 +195,7 @@ public class DataBuilder {
 	{
 		DataBuilder dataBuilder=new DataBuilder();
 		dataBuilder.toString();
-		System.out.println(DataBuilder.line1.get(1).edgeList);
+		System.out.println(DataBuilder.line1);
 		LinkedList<Integer> linkedList=new LinkedList<>();
 		linkedList.add(1);
 		System.out.println(linkedList);
