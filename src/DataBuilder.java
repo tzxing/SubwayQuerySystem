@@ -25,9 +25,9 @@ public class DataBuilder {
         for(int i =0;i<line1.size();i++)
         {  
         	if(i<line1.size()-1)
-        		line1.get(i).edgeList.add(line1.get(i+1));
+        		line1.get(i).edgeList.add(line1.get(i+1).label);
         	if(i>0)
-        		line1.get(i).edgeList.add(line1.get(i-1));
+        		line1.get(i).edgeList.add(line1.get(i-1).label);
         }  
           
         /*******************************************************************************/  
@@ -41,9 +41,9 @@ public class DataBuilder {
         for(int i =0;i<line2.size();i++)
         {  
         	if(i<line2.size()-1)
-        		line2.get(i).edgeList.add(line2.get(i+1));
+        		line2.get(i).edgeList.add(line2.get(i+1).label);
         	if(i>0)
-        		line2.get(i).edgeList.add(line2.get(i-1));
+        		line2.get(i).edgeList.add(line2.get(i-1).label);
         }  
           
         /*******************************************************************************/  
@@ -57,9 +57,9 @@ public class DataBuilder {
         for(int i =0;i<line3.size();i++)
         {  
         	if(i<line3.size()-1)
-        		line3.get(i).edgeList.add(line3.get(i+1));
+        		line3.get(i).edgeList.add(line3.get(i+1).label);
         	if(i>0)
-        		line3.get(i).edgeList.add(line3.get(i-1));
+        		line3.get(i).edgeList.add(line3.get(i-1).label);
         }  
           
         /*******************************************************************************/         
@@ -73,9 +73,9 @@ public class DataBuilder {
         for(int i =0;i<line10.size();i++)
         {  
         	if(i<line10.size()-1)
-        		line10.get(i).edgeList.add(line10.get(i+1));
+        		line10.get(i).edgeList.add(line10.get(i+1).label);
         	if(i>0)
-        		line10.get(i).edgeList.add(line10.get(i-1));
+        		line10.get(i).edgeList.add(line10.get(i-1).label);
         }  
           
         /*******************************************************************************/         
@@ -89,9 +89,9 @@ public class DataBuilder {
         for(int i =0;i<lineS1.size();i++)
         {  
         	if(i<lineS1.size()-1)
-        		lineS1.get(i).edgeList.add(lineS1.get(i+1));
+        		lineS1.get(i).edgeList.add(lineS1.get(i+1).label);
         	if(i>0)
-        		lineS1.get(i).edgeList.add(lineS1.get(i-1));
+        		lineS1.get(i).edgeList.add(lineS1.get(i-1).label);
         }  
           
         /*******************************************************************************/         
@@ -105,9 +105,9 @@ public class DataBuilder {
         for(int i =0;i<lineS8.size();i++)
         {  
         	if(i<lineS8.size()-1)
-        		lineS8.get(i).edgeList.add(lineS8.get(i+1));
+        		lineS8.get(i).edgeList.add(lineS8.get(i+1).label);
         	if(i>0)
-        		lineS8.get(i).edgeList.add(lineS8.get(i-1));
+        		lineS8.get(i).edgeList.add(lineS8.get(i-1).label);
         }  
           
         lineSet.add(line1);  

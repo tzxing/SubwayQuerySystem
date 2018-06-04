@@ -36,7 +36,7 @@ public class SubwayGraph
 				vertices.put(station.label, station);
 			else 
 			{
-				for(Station s:station.edgeList)
+				for(String s:station.edgeList)
 				vertices.get(station.label).edgeList.add(s);
 			}
 		}
@@ -48,7 +48,7 @@ public class SubwayGraph
 	
 	public String shortestRoute(String s1,String s2)
 	{
-		String ret;
+		StringBuffer ret=new StringBuffer();
 		Queue<Station> queue=new LinkedList<>();
 		for (Map.Entry<String, Station> entry : vertices.entrySet())
 			entry.getValue().dist=-1;
@@ -57,30 +57,25 @@ public class SubwayGraph
 		while(!queue.isEmpty())
 		{
 			Station vStation=queue.poll();
-			for(Station edgeStation:vStation.edgeList)
-				if(edgeStation.dist==-1)
+			for(String edgeStation:vStation.edgeList)
+				if(vertices.get(edgeStation).dist==-1)
 				{
-					edgeStation.dist=vStation.dist+1;
+					vertices.get(edgeStation).dist=vStation.dist+1;
+					vertices.get(edgeStation).preStation=vStation.label;
+					queue.add(vertices.get(edgeStation));
 				}
 		}
+		for(Station station=vertices.get(s2);!station.preStation.equals(s1);station=vertices.get(station.preStation))
+		{
+			ret.insert(0, ">"+station.label);
+		}
+		ret.insert(0, s1);
+		ret.insert(0, "线路为：");
+		ret.insert(0, "从"+s1+"到"+s2+"共计"+vertices.get(s2).dist+"站"+"\n");
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		return null;
+		return ret.toString();
 	}
 	
 	
@@ -98,8 +93,8 @@ public class SubwayGraph
 	{
 		SubwayGraph subwayGraph=new SubwayGraph(DataBuilder.lineSet);
 		System.out.println(subwayGraph);
-		System.out.println(subwayGraph.vertices.get("南京林业大学·新庄站").edgeList);
-		subwayGraph.vertices.
+		System.out.println(subwayGraph.vertices.get("南京站").edgeList);
+		System.out.println(subwayGraph.shortestRoute("南京站", "奥体东站"));
 	}
 	
 }
