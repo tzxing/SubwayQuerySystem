@@ -4,13 +4,14 @@ public class Station
 {
 	public String label;
 	public String line;
-	public LinkedList<Station> edgeList;
+	public LinkedList<String> edgeList;
 	public int dist;
+	public String preStation;
 	public Station()
 	{
 		edgeList=new LinkedList<>();
 	}
-	public Station(String label,String line,Station edge)
+	public Station(String label,String line,String edge)
 	{
 		this();
 		this.label=label;
