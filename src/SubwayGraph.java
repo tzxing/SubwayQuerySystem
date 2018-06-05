@@ -115,7 +115,6 @@ public class SubwayGraph
 		{
 			route.push(station);
 		}
-		// ret.append(this.printRoute(route));
 		Station pre = null;
 		while (!route.isEmpty())
 		{
@@ -129,13 +128,6 @@ public class SubwayGraph
 				routeDisplay.append(">" + station.label);
 			pre = station;
 		}
-
-		// routeDisplay=ret.toString();
-		// ret.insert(0, "线路为：");
-		// ret.insert(0,
-		// "从"+s1+"到"+s2+"的最短路径共计"+collection.get(s2).dist+"站"+"\n");
-		// return new ReturnStruct(ret.toString(),
-		// routeDisplay,collection.get(s2).dist);
 		return new ReturnStruct(routeDisplay.toString(), collection.get(s2).dist);
 	}
 
@@ -151,7 +143,6 @@ public class SubwayGraph
 	public static ReturnStruct shortestRoute(String s1, String s2, Map<String, Station> collection)
 	{
 
-		// StringBuffer ret=new StringBuffer();
 		StringBuffer routeDisplay = new StringBuffer();
 		Queue<Station> queue = new LinkedList<>();
 		Stack<Station> route = new Stack<>();
@@ -178,7 +169,6 @@ public class SubwayGraph
 		{
 			route.push(station);
 		}
-		// ret.append(this.printRoute(route));
 		Station pre = null;
 		while (!route.isEmpty())
 		{
@@ -193,12 +183,6 @@ public class SubwayGraph
 			pre = station;
 		}
 		routeDisplay.insert(0, s1);
-		// routeDisplay=ret.toString();
-		// ret.insert(0, "线路为：");
-		// ret.insert(0,
-		// "从"+s1+"到"+s2+"的最短路径共计"+collection.get(s2).dist+"站"+"\n");
-		// return new ReturnStruct(ret.toString(),
-		// routeDisplay,collection.get(s2).dist);
 		return new ReturnStruct(routeDisplay.toString(), collection.get(s2).dist);
 	}
 
