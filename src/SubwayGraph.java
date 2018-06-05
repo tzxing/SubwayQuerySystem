@@ -89,26 +89,41 @@ public class SubwayGraph
 		{
 			Station station=route.pop();
 			
-			if(station.isTransfer&&pre!=null&&!pre.onTheSameLine(route.peek()))
+			if(station.isTransfer&&pre!=null&&!route.isEmpty()&&!pre.onTheSameLine(route.peek()))
 			{
 				ret.append( ">"+station.label+"（换乘）");
 			}
 			else
 				ret.append(">"+station.label);
-			
-				
-//			if(needTransfer&&station.isTransfer)
-//				ret.append( ">"+station.label+"（换乘）");
 			pre=station;
 		}
 		return ret.toString();
 	}
 	
-	public String leastTransferRoute()
-	{
-		return null;
-		
-	}
+//	public String leastTransferRoute(String s1,String s2)
+//	{
+//		StringBuffer ret=new StringBuffer();
+//		if(vertices.get(s1).onTheSameLine(vertices.get(s2)))
+//			ret.append(s1+s2);
+//		else
+//		{
+//			for(Station s:vertices.values())
+//			{
+//				if(s.isTransfer&&s.line.contains(vertices.get(s1).line))
+//					
+//			}
+//		}
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		return null;
+//		
+//	}
 	
 	
 	
@@ -135,10 +150,9 @@ public class SubwayGraph
 	public static void main(String[] args)
 	{
 		SubwayGraph subwayGraph=new SubwayGraph(DataBuilder.lineSet);
-		//System.out.println(subwayGraph);
 		System.out.println(subwayGraph.vertices.get("南京南站").line);
-		System.out.println(subwayGraph.vertices.get("龙眠大道站").isTransfer);
-		System.out.println(subwayGraph.shortestRoute("迈皋桥站", "龙眠大道站"));
+		System.out.println(subwayGraph.vertices.get("禄口机场站").isTransfer);
+		System.out.println(subwayGraph.shortestRoute("南京站", "鸡鸣寺站"));
 	}
 	
 }

@@ -16,7 +16,7 @@ public class DataBuilder {
     public static List<Station> lineS7 = new ArrayList<Station>();//S7号线  
     public static List<Station> lineS8 = new ArrayList<Station>();//S8号线  
     public static List<Station> lineS9= new ArrayList<Station>();//S9号线  
-    public static Set<List<Station>> lineSet = new HashSet<List<Station>>();//所有线集合  
+    public static Set<List<Station>> lineSet = new HashSet<List<Station>>();//所有线集合 
     static {          
         //1号线  
         String line1Str = "迈皋桥站、红山动物园站、南京站、新模范马路站、玄武门站、鼓楼站、珠江路站、新街口站、张府园站、三山街站、中华门站、安德门站、天隆寺站、软件大道站、花神庙站、南京南站、双龙大道站、河定桥站、胜太路站、百家湖站、小龙湾站、竹山路站、天印大道站、龙眠大道站、南医大·江苏经贸学院站、南京交院站、中国药科大学站";  
@@ -100,7 +100,7 @@ public class DataBuilder {
           
         /*******************************************************************************/         
         //s1号线  
-        String lineS1Str = "南京南站、翠屏山站、河海大学·佛城西路站、吉印大道站、正方中路站、翔宇路北站、翔宇路南站、禄口机场站";  
+        String lineS1Str = "南京南站、翠屏山站、河海大学·佛城西路站、吉印大道站、正方中路站、翔宇路北站、翔宇路南站、禄口机场站、空港新城江宁站";  
         String[] lineS1Arr = lineS1Str.split("、");  
         for(String s : lineS1Arr)
         {  
@@ -131,7 +131,7 @@ public class DataBuilder {
         
         
       //s7号线  
-        String lineS7Str = "禄口机场站、空港新城江宁站、柘塘站、空港新城溧水站、群力站、卧龙湖站、溧水站、中山湖站、幸庄站、无想山站";  
+        String lineS7Str = "空港新城江宁站、柘塘站、空港新城溧水站、群力站、卧龙湖站、溧水站、中山湖站、幸庄站、无想山站";  
         String[] lineS7Arr = lineS7Str.split("、");  
         for(String s : lineS7Arr)
         {  
