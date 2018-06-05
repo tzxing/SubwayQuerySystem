@@ -51,7 +51,7 @@ public class SubwayGraph
 				}
 			}
 		}
-		vertices.putAll(lines);
+		//vertices.putAll(lines);
 	}
 	
 	public void Add(List<Station> line)
@@ -79,43 +79,33 @@ public class SubwayGraph
 		return vertices.toString();
 	}
 	
-	public ReturnStruct shortestRoute(String s1,String s2)
+	public static ReturnStruct shortestRoute(String s1,String s2,Map<String, Station> collection)
 	{
 		StringBuffer ret=new StringBuffer();
 		String routeDisplay;
 		Queue<Station> queue=new LinkedList<>();
 		Stack<Station> route=new Stack<>();
-		for (Map.Entry<String, Station> entry : vertices.entrySet())
+		for (Map.Entry<String, Station> entry : collection.entrySet())
 			entry.getValue().dist=-1;
-		vertices.get(s1).dist=0;
-		queue.add(vertices.get(s1));
+		collection.get(s1).dist=0;
+		queue.add(collection.get(s1));
 		while(!queue.isEmpty())
 		{
 			Station vStation=queue.poll();
 			for(String edgeStation:vStation.edgeList)
-				if(vertices.get(edgeStation).dist==-1)
+				if(collection.get(edgeStation).dist==-1)
 				{
-					vertices.get(edgeStation).dist=vStation.dist+1;
-					vertices.get(edgeStation).preStation=vStation.label;
-					queue.add(vertices.get(edgeStation));
+					collection.get(edgeStation).dist=vStation.dist+1;
+					collection.get(edgeStation).preStation=vStation.label;
+					queue.add(collection.get(edgeStation));
 				}
 		}
 		
-		for(Station station=vertices.get(s2);!station.label.equals(s1);station=vertices.get(station.preStation))
+		for(Station station=collection.get(s2);!station.label.equals(s1);station=collection.get(station.preStation))
 		{
 			route.push(station);
 		}
-		ret.append(this.printRoute(route));
-		ret.insert(0, s1);
-		routeDisplay=ret.toString();
-		ret.insert(0, "线路为：");
-		ret.insert(0, "从"+s1+"到"+s2+"的最短路径共计"+vertices.get(s2).dist+"站"+"\n");
-		return new ReturnStruct(ret.toString(), routeDisplay,vertices.get(s2).dist);
-	}
-	
-	private String printRoute(Stack<Station> route)
-	{
-		StringBuffer ret=new StringBuffer();
+		//ret.append(this.printRoute(route));
 		Station pre=null;
 		while(!route.isEmpty())
 		{
@@ -129,8 +119,31 @@ public class SubwayGraph
 				ret.append(">"+station.label);
 			pre=station;
 		}
-		return ret.toString();
+		ret.insert(0, s1);
+		routeDisplay=ret.toString();
+		ret.insert(0, "线路为：");
+		ret.insert(0, "从"+s1+"到"+s2+"的最短路径共计"+collection.get(s2).dist+"站"+"\n");
+		return new ReturnStruct(ret.toString(), routeDisplay,collection.get(s2).dist);
 	}
+	
+//	private String printRoute(Stack<Station> route)
+//	{
+//		StringBuffer ret=new StringBuffer();
+//		Station pre=null;
+//		while(!route.isEmpty())
+//		{
+//			Station station=route.pop();
+//			
+//			if(station.isTransfer&&pre!=null&&!route.isEmpty()&&!pre.onTheSameLine(route.peek()))
+//			{
+//				ret.append( ">"+station.label+"（换乘）");
+//			}
+//			else
+//				ret.append(">"+station.label);
+//			pre=station;
+//		}
+//		return ret.toString();
+//	}
 	
 	public String leastTransferRoute(String s1,String s2)
 	{
@@ -145,10 +158,10 @@ public class SubwayGraph
 		{
 			for(String a2:destination)
 			{
-				if(this.shortestRoute(a1,a2).num<min)
+				if(SubwayGraph.shortestRoute(a1,a2,this.lines).num<min)
 				{
-					min=this.shortestRoute(a1,a2).num;
-					temp=this.shortestRoute(a1,a2).route;
+					min=SubwayGraph.shortestRoute(a1,a2,this.lines).num;
+					temp=SubwayGraph.shortestRoute(a1,a2,this.lines).route;
 				}
 			}
 		}
@@ -158,12 +171,33 @@ public class SubwayGraph
 		return ret.toString();
 	}
 	
-	public String routeOntheSamneLine(Station a,Station b)
+	public String routeOntheSamneLine(Station a,Station b,List<Station> line)//==================================
 	{
-		StringBuffer ret=new StringBuffer();
-		if(!a.line.contains(b.line))
+		Map<String, Station> temp=new HashMap<>();
+		if(!a.line.contains(line)&&b.line.contains(line))
 			return null;
-		a.line.union
+		for(int i=0;i<line.size();i++)
+		{
+			Station station=line.get(i);
+			if(!temp.containsKey(station.label))
+				temp.put(station.label, station);
+			else 
+			{
+				for(String s:station.edgeList)
+					temp.get(station.label).edgeList.add(s);
+				for(String s:station.line)
+					if(!temp.get(station.label).line.contains(s))
+					{
+						temp.get(station.label).line.add(s);
+					}
+			}
+		}
+		for(Station s:temp.values())
+		{
+			s.isTransfer=vertices.get(s.label).isTransfer;
+		}
+		
+		return SubwayGraph.shortestRoute(a.label, b.label, temp).route;//===================
 	}
 	
 	public static void main(String[] args)
@@ -171,9 +205,13 @@ public class SubwayGraph
 		SubwayGraph subwayGraph=new SubwayGraph(DataBuilder.lineSet);
 		//System.out.println(subwayGraph.vertices.get("南京南站").line);
 		//System.out.println(subwayGraph.vertices.get("禄口机场站").isTransfer);
-		System.out.println(subwayGraph.shortestRoute("浦口万汇城站", "龙眠大道站"));
-		System.out.println(subwayGraph.leastTransferRoute("浦口万汇城站", "龙眠大道站"));
+		//System.out.println(SubwayGraph.shortestRoute("浦口万汇城站", "龙眠大道站",subwayGraph.vertices));
+		//System.out.println(subwayGraph.leastTransferRoute("浦口万汇城站", "龙眠大道站"));
 		//System.out.println(subwayGraph.vertices.get("3号线").edgeList.toString());
+		Station s1=subwayGraph.vertices.get("南京站");
+		Station s2=subwayGraph.vertices.get("龙眠大道站");
+		String string=subwayGraph.routeOntheSamneLine(s1, s2, DataBuilder.line1);
+		System.out.println(string);
 	}
 	
 }

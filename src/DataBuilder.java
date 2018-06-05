@@ -191,13 +191,13 @@ public class DataBuilder {
         lineSet.add(lineS9);
         
     }  
-    public static void main(String[] args)
-	{
-		DataBuilder dataBuilder=new DataBuilder();
-		dataBuilder.toString();
-		System.out.println(DataBuilder.line1);
-		LinkedList<Integer> linkedList=new LinkedList<>();
-		linkedList.add(1);
-		System.out.println(linkedList);
-	}
+//    public static void main(String[] args)
+//	{
+//		DataBuilder dataBuilder=new DataBuilder();
+//		dataBuilder.toString();
+//		System.out.println(DataBuilder.line1);
+//		LinkedList<Integer> linkedList=new LinkedList<>();
+//		linkedList.add(1);
+//		System.out.println(linkedList);
+//	}
 }  

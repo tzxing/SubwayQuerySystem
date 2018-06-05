@@ -27,6 +27,13 @@ public class Station
 		this.label=label;
 		this.line.add(line);
 	}
+	public Station(String label, LinkedList<String> line, LinkedList<String> edgeList)
+	{
+		this();
+		this.label=label;
+		this.line=line;
+		this.edgeList=edgeList;
+	}
 	public String toString()
 	{
 		return this.label;
