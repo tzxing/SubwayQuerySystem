@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class TransferGraph
 {
@@ -44,12 +45,10 @@ public class TransferGraph
 	public String toString()
 	{
 		StringBuffer ret=new StringBuffer();
-		Object linesname[];
 		ret.append("     ");
 		for(String s1:lines.keySet())
 			ret.append("   "+s1);
 		ret.append("\n");
-		linesname= lines.keySet().toArray();
 		for(String s1:lines.keySet())
 		{
 			ret.append(s1+"            ");
@@ -59,6 +58,21 @@ public class TransferGraph
 		}
 		return ret.toString();
 	}
+	
+
+	public String leastTransferRoute(Station s1,Station s2)
+	{
+		Object[] start,destnation;
+		start=s1.line.toArray();
+		destnation=s2.line.toArray();
+		
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 	

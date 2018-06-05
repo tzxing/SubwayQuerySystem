@@ -100,50 +100,25 @@ public class SubwayGraph
 		return ret.toString();
 	}
 	
-//	public String leastTransferRoute(String s1,String s2)
-//	{
-//		StringBuffer ret=new StringBuffer();
-//		if(vertices.get(s1).onTheSameLine(vertices.get(s2)))
-//			ret.append(s1+s2);
-//		else
-//		{
-//			for(Station s:vertices.values())
-//			{
-//				if(s.isTransfer&&s.line.contains(vertices.get(s1).line))
-//					
-//			}
-//		}
-//		
-//		
-//		
-//		
-//		
-//		
-//		
-//		
-//		return null;
-//		
-//	}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public String leastTransferRoute(String s1,String s2)
+	{
+		StringBuffer ret=new StringBuffer();
+		String[] start=new String[vertices.get(s1).line.size()];
+		String[] destination=new String[vertices.get(s2).line.size()];
+		vertices.get(s1).line.toArray(start);
+		vertices.get(s2).line.toArray(destination);
+		for(String a1:start)
+		{
+			for(String a2:destination)
+			{
+				ret.append(this.shortestRoute(a1,a2));
+			}
+		}
+		
+		return ret.toString();
+	}
 	
 	
 	
