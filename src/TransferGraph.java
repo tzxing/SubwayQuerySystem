@@ -84,13 +84,13 @@ public class TransferGraph
 	
 	
 	
-	public static void main(String[] args)
-	{
-		SubwayGraph subwayGraph=new SubwayGraph(DataBuilder.lineSet);
-		TransferGraph transferGraph=new TransferGraph(subwayGraph.vertices,10);
-		System.out.println(transferGraph.toString());
-		
-	}
+//	public static void main(String[] args)
+//	{
+//		SubwayGraph subwayGraph=new SubwayGraph(DataBuilder.lineSet);
+//		TransferGraph transferGraph=new TransferGraph(subwayGraph.vertices,10);
+//		System.out.println(transferGraph.toString());
+//		
+//	}
 	
 	
 	

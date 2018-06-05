@@ -1,7 +1,27 @@
 import java.util.LinkedList;
 
-public class Station
+public class Station implements Cloneable
 {
+	@Override
+	public Station clone() throws CloneNotSupportedException
+	{
+		Station sc = null;
+		try
+		{
+			sc=(Station) super.clone();
+			sc.label=new String(this.label);
+			sc.line=new LinkedList<>(this.line);
+			sc.edgeList=new LinkedList<>(this.edgeList);
+			sc.preStation=new String(this.preStation);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace(); 
+		}
+		return sc;
+	}
+
+
 	public String label;
 	public LinkedList<String> line;
 	public LinkedList<String> edgeList;
@@ -53,4 +73,27 @@ public class Station
 		}
 		return ret;
 	}
+	public static Station copy(Station src)
+	{
+		Station station=new Station();
+		station.label=src.label;
+		station.line=src.line;
+		station.edgeList=src.edgeList;
+		station.dist=src.dist;
+		station.preStation=src.preStation;
+		station.isTransfer=src.isTransfer;
+		return station;
+	}
+	
+	
+	public static void main(String[] args)
+	{
+		Station station1 = new Station();
+		Station station2=station1;
+		station1.label="!";
+		station2.label="#";
+		System.out.println(station1.isTransfer);
+		System.out.println(station2.label);
+	}
+	
 }

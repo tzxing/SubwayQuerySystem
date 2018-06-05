@@ -19,7 +19,11 @@ public class SubwayGraph
 	
 	public SubwayGraph(Set<List<Station>> lineSet)
 	{
+
+
 		this();
+		System.out.println(DataBuilder.line3.get(9).edgeList);
+		//初始化vertices
 		for(List<Station> line:lineSet)
 		{
 			this.Add(line);
@@ -29,6 +33,8 @@ public class SubwayGraph
 			if(station.line.size()>1)
 				station.isTransfer=true;
 		}
+		
+		//初始化lines
 		for(Station station:vertices.values())
 		{
 			for(String string:station.line)
@@ -51,14 +57,25 @@ public class SubwayGraph
 				}
 			}
 		}
-		//vertices.putAll(lines);
+		System.out.println(DataBuilder.line3.get(9).edgeList);
 	}
 	
 	public void Add(List<Station> line)
 	{
+		System.out.println(DataBuilder.line3.get(9).edgeList);
+
 		for(int i=0;i<line.size();i++)
 		{
-			Station station=line.get(i);
+			Station station = null;
+			try
+			{
+				station = line.get(i).clone();
+			}
+			catch (CloneNotSupportedException e)
+			{
+				e.printStackTrace();
+			}
+//			System.out.println(line.get(i).edgeList);
 			if(!vertices.containsKey(station.label))
 				vertices.put(station.label, station);
 			else 
@@ -71,7 +88,14 @@ public class SubwayGraph
 						vertices.get(station.label).line.add(s);
 					}
 			}
+//			System.out.println(vertices.get(station.label).edgeList);
 		}
+//		for(int i=0;i<line.size();i++)
+//		{
+//			System.out.println(DataBuilder.line3.get(i).edgeList);
+//		}
+		System.out.println(DataBuilder.line3.get(9).edgeList);
+
 	}
 	
 	public String toString()
@@ -93,12 +117,15 @@ public class SubwayGraph
 		{
 			Station vStation=queue.poll();
 			for(String edgeStation:vStation.edgeList)
+			{
+				System.out.println(collection.get(edgeStation).dist);
 				if(collection.get(edgeStation).dist==-1)
 				{
 					collection.get(edgeStation).dist=vStation.dist+1;
 					collection.get(edgeStation).preStation=vStation.label;
 					queue.add(collection.get(edgeStation));
 				}
+			}
 		}
 		
 		for(Station station=collection.get(s2);!station.label.equals(s1);station=collection.get(station.preStation))
@@ -171,47 +198,34 @@ public class SubwayGraph
 		return ret.toString();
 	}
 	
-	public String routeOntheSamneLine(Station a,Station b,List<Station> line)//==================================
+	public Map<String, Station> listToMap(List<Station> list)
 	{
-		Map<String, Station> temp=new HashMap<>();
-		if(!a.line.contains(line)&&b.line.contains(line))
-			return null;
-		for(int i=0;i<line.size();i++)
-		{
-			Station station=line.get(i);
-			if(!temp.containsKey(station.label))
-				temp.put(station.label, station);
-			else 
-			{
-				for(String s:station.edgeList)
-					temp.get(station.label).edgeList.add(s);
-				for(String s:station.line)
-					if(!temp.get(station.label).line.contains(s))
-					{
-						temp.get(station.label).line.add(s);
-					}
-			}
-		}
-		for(Station s:temp.values())
-		{
-			s.isTransfer=vertices.get(s.label).isTransfer;
-		}
-		
-		return SubwayGraph.shortestRoute(a.label, b.label, temp).route;//===================
+		HashMap<String, Station> ret=new HashMap<>();
+		for(Station x:list)
+			ret.put(x.label, x);
+		return ret;
+	}
+	
+	
+	public String routeOntheSamneLine(String a,String b,Map<String, Station> map)//==================================
+	{
+		return SubwayGraph.shortestRoute(a, b, map).route;//===================
 	}
 	
 	public static void main(String[] args)
 	{
+		System.out.println(DataBuilder.line3.get(9).edgeList);
 		SubwayGraph subwayGraph=new SubwayGraph(DataBuilder.lineSet);
+		System.out.println(DataBuilder.line3.get(9).edgeList);
 		//System.out.println(subwayGraph.vertices.get("南京南站").line);
 		//System.out.println(subwayGraph.vertices.get("禄口机场站").isTransfer);
 		//System.out.println(SubwayGraph.shortestRoute("浦口万汇城站", "龙眠大道站",subwayGraph.vertices));
 		//System.out.println(subwayGraph.leastTransferRoute("浦口万汇城站", "龙眠大道站"));
 		//System.out.println(subwayGraph.vertices.get("3号线").edgeList.toString());
-		Station s1=subwayGraph.vertices.get("南京站");
-		Station s2=subwayGraph.vertices.get("龙眠大道站");
-		String string=subwayGraph.routeOntheSamneLine(s1, s2, DataBuilder.line1);
-		System.out.println(string);
+		//Map<String, Station> line11=subwayGraph.listToMap(DataBuilder.line3);
+//		System.out.println(DataBuilder.line3);
+//		System.out.println(line11);
+		System.out.println(subwayGraph.routeOntheSamneLine("南京站", "南京南站",subwayGraph.listToMap(DataBuilder.line3)));
 	}
 	
 }
