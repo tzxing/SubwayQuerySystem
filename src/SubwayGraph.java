@@ -164,8 +164,7 @@ public class SubwayGraph
 			}
 		}
 
-		for (Station station = collection.get(s2); !station.label.equals(s1); station = collection
-				.get(station.preStation))
+		for (Station station = collection.get(s2); !station.label.equals(s1); station = collection.get(station.preStation))
 		{
 			route.push(station);
 		}
@@ -369,8 +368,8 @@ public class SubwayGraph
 		SubwayGraph subwayGraph=new SubwayGraph(DataBuilder.lineSet);
 		System.out.println(subwayGraph.shortestTakeRoute("南京站", "龙眠大道站"));
 		System.out.println(subwayGraph.leastTransferRoute("南京站", "龙眠大道站"));
-		System.out.println(subwayGraph.shortestTakeRoute("浦口万汇城站", "龙眠大道站"));
-		System.out.println(subwayGraph.leastTransferRoute("浦口万汇城站", "龙眠大道站"));
+		System.out.println(subwayGraph.shortestTakeRoute("雨山路站", "无想山站"));
+		System.out.println(subwayGraph.leastTransferRoute("雨山路站", "无想山站"));
 	}
 
 }

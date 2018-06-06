@@ -168,7 +168,7 @@ public class DataBuilder {
         String[] lineS9Arr = lineS9Str.split("°¢");  
         for(String s : lineS9Arr)
         {  
-            lineS1.add(new Station(s,"S9∫≈œﬂ"));  
+            lineS9.add(new Station(s,"S9∫≈œﬂ"));  
         }  
         for(int i =0;i<lineS9.size();i++)
         {  
