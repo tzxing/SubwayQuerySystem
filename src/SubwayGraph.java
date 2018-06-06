@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+import java.util.function.LongBinaryOperator;
 
 public class SubwayGraph
 {
@@ -88,7 +89,6 @@ public class SubwayGraph
 
 	public static ReturnStruct shortestRouteWithnotFirstName(String s1, String s2, Map<String, Station> collection)
 	{
-		// StringBuffer ret=new StringBuffer();
 		StringBuffer routeDisplay = new StringBuffer();
 		Queue<Station> queue = new LinkedList<>();
 		Stack<Station> route = new Stack<>();
@@ -164,7 +164,8 @@ public class SubwayGraph
 			}
 		}
 
-		for (Station station = collection.get(s2); !station.label.equals(s1); station = collection.get(station.preStation))
+		for (Station station = collection.get(s2); !station.label.equals(s1); station = collection
+				.get(station.preStation))
 		{
 			route.push(station);
 		}
@@ -207,11 +208,12 @@ public class SubwayGraph
 				}
 			}
 		}
+		System.out.println(temp);
 		lineRoute = temp.split(">");
-		if(lineRoute.length==1)
+		if (lineRoute.length == 1)
 		{
 			ret.append(SubwayGraph.routeOntheSamneLine(s1, s2, lineRoute[0]));
-			num=SubwayGraph.routeOntheSamneLine(s1, s2, lineRoute[0]).num;
+			num = SubwayGraph.routeOntheSamneLine(s1, s2, lineRoute[0]).num;
 		}
 		else
 		{
@@ -220,42 +222,55 @@ public class SubwayGraph
 			for (int i = 0; i < lineRoute.length - 1; i++)
 			{
 				String probablyTransfer[] = this.getTransferStationName(lineRoute[i], lineRoute[i + 1]).split(" ");
-				int min_1 = Integer.MAX_VALUE;
-				for (int j = 0; j < probablyTransfer.length; j++)
+				if (probablyTransfer.length == 1)
 				{
-					next = probablyTransfer[j];
-					if (SubwayGraph.routeOntheSamneLine(pre, next, lineRoute[i]).num < min_1)
+					next = probablyTransfer[0];
+					num += SubwayGraph.routeOntheSamneLine(pre, next, lineRoute[i]).num;
+					if (i == 0)
 					{
-						if (i == 0)
-						{
-							min_1 = SubwayGraph.routeOntheSamneLine(pre, next, lineRoute[i]).num;
-							temp = SubwayGraph.routeOntheSamneLine(pre, next, lineRoute[i]).route;
-						}
+						ret.append(SubwayGraph.routeOntheSamneLine(pre, next, lineRoute[i]).route);
+					}
+					else
+					{
+						ret.append(SubwayGraph.routeOntheSamneLineWithnotFirstName(pre, next, lineRoute[i]).route);
+					}
+
+				}
+				else//此算法只对当前南京地铁线路有效
+				{
+					int min_1 = Integer.MAX_VALUE;
+					String rear = null;
+
+					for (int j = 0; j < probablyTransfer.length; j++)
+					{
+						next = probablyTransfer[j];
+						if (i + 1 == probablyTransfer.length)
+							rear = s2;
 						else
+							rear = this.getTransferStationName(lineRoute[i], lineRoute[i + 1]).split(" ")[0];
+						if (SubwayGraph.routeOntheSamneLine(pre, next, lineRoute[i]).num
+								+ SubwayGraph.routeOntheSamneLine(next, rear, lineRoute[i + 1]).num < min_1)
 						{
-							min_1 = SubwayGraph.routeOntheSamneLineWithnotFirstName(pre, next, lineRoute[i]).num;
-							temp = SubwayGraph.routeOntheSamneLineWithnotFirstName(pre, next, lineRoute[i]).route;
+							min_1 = SubwayGraph.routeOntheSamneLine(pre, next, lineRoute[i]).num
+									+ SubwayGraph.routeOntheSamneLine(next, rear, lineRoute[i + 1]).num;
+							if (i == 0)
+								temp = SubwayGraph.routeOntheSamneLine(pre, next, lineRoute[i]).route;
+							else
+								temp = SubwayGraph.routeOntheSamneLineWithnotFirstName(pre, next, lineRoute[i]).route;
 						}
 					}
+					ret.append(temp);
+					num += min_1;
+					num -= SubwayGraph.routeOntheSamneLine(next, rear, lineRoute[i + 1]).num;
 				}
-				ret.append(temp);
-				num += min_1;
 				ret.append("（换乘）");
 				pre = next;
 			}
-			ret.append(SubwayGraph.routeOntheSamneLineWithnotFirstName(next, s2, lineRoute[lineRoute.length - 1]).route);
+			ret.append(
+					SubwayGraph.routeOntheSamneLineWithnotFirstName(next, s2, lineRoute[lineRoute.length - 1]).route);
 			num += SubwayGraph.routeOntheSamneLine(next, s2, lineRoute[lineRoute.length - 1]).num;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		ret.insert(0, "线路为：");
 		ret.insert(0, "从" + s1 + "到" + s2 + "的最少换乘线路共计：" + num + "站" + "\n");
 
@@ -365,11 +380,11 @@ public class SubwayGraph
 
 	public static void main(String[] args)
 	{
-		SubwayGraph subwayGraph=new SubwayGraph(DataBuilder.lineSet);
-		System.out.println(subwayGraph.shortestTakeRoute("南京站", "龙眠大道站"));
-		System.out.println(subwayGraph.leastTransferRoute("南京站", "龙眠大道站"));
-		System.out.println(subwayGraph.shortestTakeRoute("雨山路站", "无想山站"));
-		System.out.println(subwayGraph.leastTransferRoute("雨山路站", "无想山站"));
+		SubwayGraph subwayGraph = new SubwayGraph(DataBuilder.lineSet);
+		System.out.println(subwayGraph.shortestTakeRoute("信息工程大学站", "龙眠大道站"));
+		System.out.println(subwayGraph.leastTransferRoute("信息工程大学站", "龙眠大道站"));
+		System.out.println(subwayGraph.shortestTakeRoute("鸡鸣寺站", "龙眠大道站"));
+		System.out.println(subwayGraph.leastTransferRoute("鸡鸣寺站", "龙眠大道站"));
 	}
 
 }
