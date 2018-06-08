@@ -208,7 +208,6 @@ public class SubwayGraph
 				}
 			}
 		}
-		System.out.println(temp);
 		lineRoute = temp.split(">");
 		if (lineRoute.length == 1)
 		{
@@ -270,7 +269,6 @@ public class SubwayGraph
 					SubwayGraph.routeOntheSamneLineWithnotFirstName(next, s2, lineRoute[lineRoute.length - 1]).route);
 			num += SubwayGraph.routeOntheSamneLine(next, s2, lineRoute[lineRoute.length - 1]).num;
 		}
-
 		ret.insert(0, "线路为：");
 		ret.insert(0, "从" + s1 + "到" + s2 + "的最少换乘线路共计：" + num + "站" + "\n");
 
@@ -381,10 +379,10 @@ public class SubwayGraph
 	public static void main(String[] args)
 	{
 		SubwayGraph subwayGraph = new SubwayGraph(DataBuilder.lineSet);
-		System.out.println(subwayGraph.shortestTakeRoute("信息工程大学站", "龙眠大道站"));
-		System.out.println(subwayGraph.leastTransferRoute("信息工程大学站", "龙眠大道站"));
-		System.out.println(subwayGraph.shortestTakeRoute("鸡鸣寺站", "龙眠大道站"));
-		System.out.println(subwayGraph.leastTransferRoute("鸡鸣寺站", "龙眠大道站"));
+		System.out.println(subwayGraph.shortestTakeRoute("信息工程大学站", "林山站"));
+		System.out.println(subwayGraph.leastTransferRoute("信息工程大学站", "林山站"));
+//		System.out.println(subwayGraph.shortestTakeRoute("鸡鸣寺站", "龙眠大道站"));
+//		System.out.println(subwayGraph.leastTransferRoute("鸡鸣寺站", "龙眠大道站"));
 	}
 
 }
