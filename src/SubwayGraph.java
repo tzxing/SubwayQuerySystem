@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
-import java.util.function.LongBinaryOperator;
 
 public class SubwayGraph
 {
@@ -31,7 +30,6 @@ public class SubwayGraph
 			if (station.line.size() > 1)
 				station.isTransfer = true;
 		}
-
 		// 初始化lines
 		for (Station station : vertices.values())
 		{
@@ -197,6 +195,7 @@ public class SubwayGraph
 		String[] lineRoute;
 		vertices.get(s1).line.toArray(start);
 		vertices.get(s2).line.toArray(destination);
+		
 		for (String a1 : start)
 		{
 			for (String a2 : destination)
@@ -205,6 +204,7 @@ public class SubwayGraph
 				{
 					min = SubwayGraph.shortestRoute(a1, a2, this.lines).num;
 					temp = SubwayGraph.shortestRoute(a1, a2, this.lines).route;
+					
 				}
 			}
 		}
@@ -235,7 +235,7 @@ public class SubwayGraph
 					}
 
 				}
-				else//此算法只对当前南京地铁线路有效
+				else// 此算法只对当前南京地铁线路有效
 				{
 					int min_1 = Integer.MAX_VALUE;
 					String rear = null;
@@ -243,7 +243,7 @@ public class SubwayGraph
 					for (int j = 0; j < probablyTransfer.length; j++)
 					{
 						next = probablyTransfer[j];
-						if (i + 1 == probablyTransfer.length)
+						if (i + 1 == min)
 							rear = s2;
 						else
 							rear = this.getTransferStationName(lineRoute[i], lineRoute[i + 1]).split(" ")[0];
@@ -379,10 +379,10 @@ public class SubwayGraph
 	public static void main(String[] args)
 	{
 		SubwayGraph subwayGraph = new SubwayGraph(DataBuilder.lineSet);
-		System.out.println(subwayGraph.shortestTakeRoute("信息工程大学站", "林山站"));
-		System.out.println(subwayGraph.leastTransferRoute("信息工程大学站", "林山站"));
-//		System.out.println(subwayGraph.shortestTakeRoute("鸡鸣寺站", "龙眠大道站"));
-//		System.out.println(subwayGraph.leastTransferRoute("鸡鸣寺站", "龙眠大道站"));
+		System.out.println(subwayGraph.shortestTakeRoute("奥体中心站", "龙眠大道站"));
+		System.out.println(subwayGraph.leastTransferRoute("奥体中心站", "龙眠大道站"));
+		System.out.println(subwayGraph.shortestTakeRoute("鸡鸣寺站", "龙眠大道站"));
+		System.out.println(subwayGraph.leastTransferRoute("鸡鸣寺站", "龙眠大道站"));
 	}
 
 }
